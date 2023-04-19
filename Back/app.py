@@ -23,7 +23,7 @@ theft_over = Base.classes.theft_over
 app = Flask(__name__)
 
 @app.route('/crime_data')
-## /crime_data?crime_type=x&?neighborhood=y&?start_year=z&?end_year=zz
+## use this in d3.json --> 127.0.0.1/crime_data?crime_type=x&?neighborhood=y&?start_year=z&?end_year=zz
 def crime_data():
     # Retrieve user-selected filters from request parameters
     neighborhood = request.args.get('neighborhood')
@@ -35,8 +35,11 @@ def crime_data():
     if neighborhood and start_year and end_year:
         # Construct query for selected crime_type table
         table = Table(crime_type, Base.metadata, autoload=True, autoload_with=engine)
-        data = session.query(table).filter(table.columns.neighborhood == neighborhood, table.columns.date >= start_year, table.columns.date <= end_year).all()
+        query = session.query(table).filter(table.columns.NEIGHBOURHOOD_158 == neighborhood, table.columns.REPORT_YEAR >= start_year, table.columns.REPORT_YEAR <= end_year)
+        rows = query.all()
 
+        # Convert rows to a list of dictionaries
+        data = [row._asdict() for row in rows]
         # Return data as JSON object
         return jsonify({'data': data})
     else:
