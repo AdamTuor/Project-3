@@ -35,7 +35,7 @@ def crime_data():
     if neighborhood and start_year and end_year:
         # Construct query for selected crime_type table
         table = Table(crime_type, Base.metadata, autoload=True, autoload_with=engine)
-        query = session.query(table).filter(table.columns.NEIGHBOURHOOD_158 == neighborhood, table.columns.REPORT_YEAR >= start_year, table.columns.REPORT_YEAR <= end_year)
+        query = session.query(table).filter(table.columns.HOOD_158 == neighborhood, table.columns.REPORT_YEAR >= start_year, table.columns.REPORT_YEAR <= end_year)
         rows = query.all()
 
         # Convert rows to a list of dictionaries
