@@ -12,36 +12,37 @@ CREATE TABLE "neighbourhoods" (
 );
 
 CREATE TABLE "assault" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
-    "LOCATION_TYPE" varchar   NOT NULL,
     "OFFENCE" varchar   NOT NULL,
     "MCI_CATEGORY" varchar   NOT NULL,
     CONSTRAINT "pk_assault" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "auto_theft" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
-    "LOCATION_TYPE" varchar   NOT NULL,
     "OFFENCE" varchar   NOT NULL,
     "MCI_CATEGORY" varchar   NOT NULL,
     CONSTRAINT "pk_auto_theft" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "bike_theft" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
@@ -50,91 +51,93 @@ CREATE TABLE "bike_theft" (
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
     CONSTRAINT "pk_bike_theft" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "break_and_enter" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
-    "LOCATION_TYPE" varchar   NOT NULL,
     "OFFENCE" varchar   NOT NULL,
     "MCI_CATEGORY" varchar   NOT NULL,
     CONSTRAINT "pk_break_and_enter" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "homicide" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
-    "OCC_YEAR" int   NOT NULL,
-    "OCC_MONTH" varchar   NOT NULL,
+    "REPORT_YEAR" int   NOT NULL,
+    "REPORT_MONTH" varchar   NOT NULL,
     CONSTRAINT "pk_homicide" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "robbery" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
-    "LOCATION_TYPE" varchar   NOT NULL,
     "OFFENCE" varchar   NOT NULL,
     "MCI_CATEGORY" varchar   NOT NULL,
     CONSTRAINT "pk_robbery" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "shooting" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
-    "OCC_YEAR" int   NOT NULL,
-    "OCC_MONTH" varchar   NOT NULL,
+    "REPORT_YEAR" int   NOT NULL,
+    "REPORT_MONTH" varchar   NOT NULL,
     CONSTRAINT "pk_shooting" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "theft_over" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
-    "LOCATION_TYPE" varchar   NOT NULL,
     "OFFENCE" varchar   NOT NULL,
     "MCI_CATEGORY" varchar   NOT NULL,
     CONSTRAINT "pk_theft_over" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
 CREATE TABLE "theft_from_vehicle" (
+    "EVENT_UNIQUE_ID" varchar   NOT NULL,
     "HOOD_158" int   NOT NULL,
     "NEIGHBOURHOOD_158" varchar   NOT NULL,
     "X" FLOAT   NOT NULL,
     "Y" FLOAT   NOT NULL,
     "REPORT_YEAR" int   NOT NULL,
     "REPORT_MONTH" varchar   NOT NULL,
-    "LOCATION_TYPE" varchar   NOT NULL,
     "OFFENCE" varchar   NOT NULL,
     "MCI_CATEGORY" varchar   NOT NULL,
     CONSTRAINT "pk_theft_from_vehicle" PRIMARY KEY (
-        "HOOD_158"
+        "EVENT_UNIQUE_ID"
      )
 );
 
@@ -164,4 +167,3 @@ REFERENCES "neighbourhoods" ("HOOD_158");
 
 ALTER TABLE "theft_from_vehicle" ADD CONSTRAINT "fk_theft_from_vehicle_HOOD_158" FOREIGN KEY("HOOD_158")
 REFERENCES "neighbourhoods" ("HOOD_158");
-
