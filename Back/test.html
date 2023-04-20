@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Test Page</h1>
+    <div id="form">
+        <form>
+          <label for="start-year">Start Year:</label>
+          <select id="start-year" name="start-year">
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+      
+            <label for="end-year">End Year:</label>
+            <select id="end-year" name="end-year">
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+      
+            <label for="crime-type">Crime Type:</label>
+            <select id="crime-type" name="crime-type">
+              <option value="auto_theft">Auto Theft</option>
+              <option value="assault">Assault</option>
+              <option value="bike_theft">Bicycle Theft</option>
+              <option value="homicide">Homicides</option>
+              <option value="robbery">Robbery</option>
+              <option value="shooting">Shooting & Firearm</option>
+              <option value="theft_from_vehicle">Theft Motor Vehicle</option>
+              <option value="theft_over">Theft Over</option>
+              <option value="break_and_enter">Break and Enter</option>
+            </select>
+            <label for="neighborhood">Neighborhoods:</label>
+            <select id="neighborhood" name="neighborhood">
+            </select>
+                
+            <input type="submit" id="submit-button" value="Submit">
+        </form>
+    <div id="yearly-line-plot"></div>
+    
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="test2.js"></script>
+  </body>
+</html>
