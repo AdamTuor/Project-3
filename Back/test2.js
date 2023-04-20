@@ -67,8 +67,10 @@ function plotCharts()
                 title:"Number of Crimes each Year"
             }
         };
+
         console.log('Plotly:', Plotly);
-        Plotly.newPlot("yearly-line-plot",yearlyCrimeTrace,yearlyCrimeLayout);
+        let lineData = [yearlyCrimeTrace];
+        Plotly.newPlot("yearly-line-plot",lineData,yearlyCrimeLayout);
 
 
     });
@@ -100,7 +102,30 @@ function setup()
         .attr("value", d => d.value)
         .text(d => d.text);
       });
-    
+    //plotCharts();
 }
+// function plotExampleData() 
+// {
+//     const exampleData = {
+//       x: ["2014", "2015", "2016", "2017", "2018", "2019"],
+//       y: [9, 4, 6, 1, 8, 14],
+//       type: "line",
+//       name: "Yearly"
+//     };
+  
+//     const exampleLayout = {
+//       title: "Yearly crime occurrences",
+//       xaxis: {
+//         title: "Year"
+//       },
+//       yaxis: {
+//         title: "Number of Crimes each Year"
+//       }
+//     };
+  
+//     Plotly.newPlot("yearly-line-plot", [exampleData], exampleLayout);
+// }
+  
 
 setup();
+//plotExampleData();

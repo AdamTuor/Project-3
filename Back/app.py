@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Table, func, desc
 from sqlalchemy.orm import Session
 from flask import Flask, jsonify, request, render_template
+from flask_cors import CORS
 from sqlalchemy.ext.automap import automap_base
 
 engine = create_engine('postgresql://postgres:postgres@127.0.0.1/crime')
@@ -23,6 +24,7 @@ theft_over = Base.classes.theft_over
 table_list = ['assault','auto_theft','bike_theft','break_and_enter','homicide','robbery','shooting','theft_from_vehicle','theft_over']
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/crime_data')
 ## use this in d3.json --> 127.0.0.1/crime_data?crime_type=x&?neighborhood=y&?start_year=z&?end_year=zz
