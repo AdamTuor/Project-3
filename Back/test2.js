@@ -36,17 +36,18 @@ function plotCharts()
         console.log(data);
         let crimeData = data.data;
         let counts = {};
-        console.log("We made it into the fetch");
+        
+
+        
+
         crimeData.forEach((crime)=>
         {
             let year = crime.REPORT_YEAR;
             counts[year] = (counts[year] || 0) +1;
-            console.log("We're in the for loop");
+        
             
         });
-        console.log(counts);
-        console.log(Object.keys(counts));
-        console.log(Object.values(counts));
+
         const yearlyCrimeTrace =
         {
             x:Object.keys(counts),
@@ -57,7 +58,7 @@ function plotCharts()
         };
         const yearlyCrimeLayout =
         {
-            title:`Yearly crime occurences`,
+            title:`${crimeType.property("value")} from ${yearStart.property("value")}-${yearEnd.property("value")}`,
             xaxis:
             {
                 title:"Year"
@@ -72,8 +73,70 @@ function plotCharts()
         let lineData = [yearlyCrimeTrace];
         Plotly.newPlot("yearly-line-plot",lineData,yearlyCrimeLayout);
 
+        
+
 
     });
+}
+function plotRadialCharts() 
+{
+    // Create a dynamic link based on user input
+    let url = `http://localhost:5000/radial?neighborhood=${neighborhood.property("value")}&start_year=${yearStart.property("value")}&end_year=${yearEnd.property("value")}`;
+  
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        
+        let crimes = ['Auto Theft','Assault','Bike Theft','Homicide','Robbery','Shooting','Theft from MV','Theft Over','B&E'];
+        let crimeKeys = ['auto_theft', 'assault', 'bike_theft', 'homicide', 'robbery', 'shooting', 'theft_from_vehicle', 'theft_over', 'break_and_enter'];
+        let crimeCounts = data.data;
+        console.log(crimeCounts);
+        
+        let radialData = [{
+            r: crimeKeys.map(key => crimeCounts[key]),
+            theta: crimes,
+            name: "Crimes",
+            type: "scatterpolar",
+            fill: "toself"
+          }];
+  
+        const radialLayout = {
+          title: `Crime breakdown from ${yearStart.property("value")}-${yearEnd.property("value")}`,
+          polar: {
+            radialaxis: {
+              visible: true,
+              range: [0, Math.max(...radialData[0].r)],
+            },
+          },
+        };
+        
+        Plotly.newPlot("radial-chart", radialData, radialLayout);
+      });
+}
+
+function plotBarChart()
+{
+    url = `http://localhost:5000/top5?crime_type=${crimeType.property("value")}&start_year=${yearStart.property("value")}&end_year=${yearEnd.property("value")}`;
+    fetch(url)
+    .then(response => response.json())
+    .then(data => 
+    {
+        let top5Data = data.data;
+        let barTrace ={
+            x:Object.keys(top5Data).reverse(),
+            y:Object.values(top5Data).reverse(),
+            type:'bar'
+        };
+        let barLayout ={
+            title:`Lowest ${crimeType.property("value")} occurence from ${yearStart.property("value")}-${yearEnd.property("value")}`
+        };
+        
+        let barData = [barTrace];
+
+        Plotly.newPlot("bar-chart",barData,barLayout);
+
+    });
+
 }
 
 
@@ -81,11 +144,13 @@ function plotCharts()
 function handleChange()
 {
     console.log("Handling changes");
-    let neighborhoodVal = neighborhood.property("value");
-    let crimeTypeVal = crimeType.property("value");
-    let yearStartVal = yearStart.property("value");
-    let yearEndVal = yearEnd.property("value");
+    // let neighborhoodVal = neighborhood.property("value");
+    // let crimeTypeVal = crimeType.property("value");
+    // let yearStartVal = yearStart.property("value");
+    // let yearEndVal = yearEnd.property("value");
     plotCharts();
+    plotRadialCharts();
+    plotBarChart();
     
 }
 
@@ -102,30 +167,10 @@ function setup()
         .attr("value", d => d.value)
         .text(d => d.text);
       });
-    //plotCharts();
+    
 }
-// function plotExampleData() 
-// {
-//     const exampleData = {
-//       x: ["2014", "2015", "2016", "2017", "2018", "2019"],
-//       y: [9, 4, 6, 1, 8, 14],
-//       type: "line",
-//       name: "Yearly"
-//     };
-  
-//     const exampleLayout = {
-//       title: "Yearly crime occurrences",
-//       xaxis: {
-//         title: "Year"
-//       },
-//       yaxis: {
-//         title: "Number of Crimes each Year"
-//       }
-//     };
-  
-//     Plotly.newPlot("yearly-line-plot", [exampleData], exampleLayout);
-// }
+
   
 
 setup();
-//plotExampleData();
+
