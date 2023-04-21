@@ -1,5 +1,5 @@
 # Project-3
-**<span style="text-decoration:underline;">Table of Contents</span>**
+## **<span style="text-decoration:underline;">Table of Contents</span>**
 
 
 
@@ -8,13 +8,13 @@
 * Data
 * Analysis
 
-**<span style="text-decoration:underline;">Overview</span>**
+## **<span style="text-decoration:underline;">Overview</span>**
 
 This project examines different categories for crime data for each of the 158 neighborhoods in Toronto.
 
 The goal of our project is to help the population visualize crime trends in their neighborhood.  Our dashboard displays interactive charts that show how a particular type of crime occurrence has changed over a range of years, the distribution of crimes in a given neighborhood, and how that neighborhood ranks among all neighborhoods based on the chosen crime.
 
-**<span style="text-decoration:underline;">Questions</span>**
+## **<span style="text-decoration:underline;">Questions</span>**
 
 
 
@@ -24,7 +24,7 @@ The goal of our project is to help the population visualize crime trends in thei
 * 4
 * 5
 
-**<span style="text-decoration:underline;">Data</span>**
+## **<span style="text-decoration:underline;">Data</span>**
 
 All data was sourced from the Toronto Police Service Public Safety Data Portal
 
@@ -45,6 +45,6 @@ All data was sourced from the Toronto Police Service Public Safety Data Portal
 * Bicycle Thefts:
     * ([https://data.torontopolice.on.ca/datasets/TorontoPS::bicycle-thefts-open-data/about](https://data.torontopolice.on.ca/datasets/TorontoPS::bicycle-thefts-open-data/about))
 
-**<span style="text-decoration:underline;">Analysis</span>**
+## **<span style="text-decoration:underline;">Analysis</span>**
 
 We need to do this part.
