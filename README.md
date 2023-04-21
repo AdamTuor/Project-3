@@ -1,4 +1,11 @@
 # Project-3
+## **<span style="text-decoration:underline;">Participants</span>**
+
+* Adam Tuor
+* Aditya Parmar
+* Gurpreet Singh Dhameja
+* Bowen Pang (Jasper)
+
 ## **<span style="text-decoration:underline;">Table of Contents</span>**
 
 
