@@ -1,25 +1,16 @@
 // Setup the selectors used for building the URL
-
-//const neighborhood = $('#select-neighborhood')
 const neighborhood = d3.select('#neighborhood');
 const crimeType = d3.select('#crime-type');
 const yearStart = d3.select('#start-year');
 const yearEnd = d3.select('#end-year');
-//const submit = d3.select('#submit-button');
+const neighborhood2 = document.getElementById('neighborhood');
 
-//neighborhood.on("select2:select", handleChange)
-//neighborhood.on("select2:unselect", handleChange)
-//neighborhood.on("select2:clear", handleChange)
 
-//neighborhood.on("change", handleChange)
-//crimeType.on("change", handleChange)
-//yearStart.on("change", handleChange)
-//yearEnd.on("change", handleChange)
-//submit.on("click", handleChange);
+
 d3.select('form')
   .on('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting and resetting options
-    handleChange(); // Call your function to handle the form submission
+    handleChange(); // Call function to handle user input
   });
 
 
@@ -29,6 +20,7 @@ function plotCharts()
 {
     // Create a dynamic link based on user input
     let url = `http://localhost:5000/crime_data?crime_type=${crimeType.property("value")}&neighborhood=${neighborhood.property("value")}&start_year=${yearStart.property("value")}&end_year=${yearEnd.property("value")}`;
+    
     fetch(url)
     .then(response => response.json())
     .then(data => 
@@ -39,10 +31,11 @@ function plotCharts()
         
 
         
-
+        //  Loop through the data and count the number of crimes for each year
         crimeData.forEach((crime)=>
         {
             let year = crime.REPORT_YEAR;
+            // add to the year or initialize if it's 0.
             counts[year] = (counts[year] || 0) +1;
         
             
@@ -56,9 +49,10 @@ function plotCharts()
             name:"Yearly"
             
         };
+        
         const yearlyCrimeLayout =
         {
-            title:`${crimeType.property("value")} from ${yearStart.property("value")}-${yearEnd.property("value")}`,
+            title:`${crimeType.property("value")} in ${neighborhood2.selectedOptions[0].textContent} from ${yearStart.property("value")}-${yearEnd.property("value")}`,
             xaxis:
             {
                 title:"Year"
@@ -91,7 +85,7 @@ function plotRadialCharts()
         let crimeKeys = ['auto_theft', 'assault', 'bike_theft', 'homicide', 'robbery', 'shooting', 'theft_from_vehicle', 'theft_over', 'break_and_enter'];
         let crimeCounts = data.data;
         console.log(crimeCounts);
-        
+        // Did not want the table names to be on the chart, mapped the keys to the values returned but used crimes array for names
         let radialData = [{
             r: crimeKeys.map(key => crimeCounts[key]),
             theta: crimes,
@@ -101,7 +95,7 @@ function plotRadialCharts()
           }];
   
         const radialLayout = {
-          title: `Crime breakdown from ${yearStart.property("value")}-${yearEnd.property("value")}`,
+          title: `Crime breakdown in ${neighborhood2.selectedOptions[0].textContent} from ${yearStart.property("value")}-${yearEnd.property("value")}`,
           polar: {
             radialaxis: {
               visible: true,
@@ -143,11 +137,8 @@ function plotBarChart()
 
 function handleChange()
 {
-    console.log("Handling changes");
-    // let neighborhoodVal = neighborhood.property("value");
-    // let crimeTypeVal = crimeType.property("value");
-    // let yearStartVal = yearStart.property("value");
-    // let yearEndVal = yearEnd.property("value");
+    //console.log("Handling changes");
+
     plotCharts();
     plotRadialCharts();
     plotBarChart();
