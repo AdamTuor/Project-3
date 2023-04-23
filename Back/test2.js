@@ -64,7 +64,7 @@ function plotCharts()
             }
         };
 
-        console.log('Plotly:', Plotly);
+        
         let lineData = [yearlyCrimeTrace];
         Plotly.newPlot("yearly-line-plot",lineData,yearlyCrimeLayout);
 
@@ -118,8 +118,8 @@ function plotBarChart()
     {
         let top5Data = data.data;
         let barTrace ={
-            x:Object.keys(top5Data).reverse(),
-            y:Object.values(top5Data).reverse(),
+            x:Object.keys(top5Data),
+            y:Object.values(top5Data),
             type:'bar'
         };
         let barLayout ={
@@ -162,6 +162,7 @@ function updateMarkers()
 
       // Clear existing markers from the layer group
       markerLayer.clearLayers();
+      // Get the crime type
       crimeTypeMap = crimeType.property("value");
       mapData.map((row) => 
       {
@@ -172,6 +173,7 @@ function updateMarkers()
         console.log(marker);
         // Add the marker to the layer group instead of directly to the map
         markerLayer.addLayer(marker);
+        // Check the crime type to decide what info should be in the marker
         if(crimeTypeMap !== "bike_theft" && crimeTypeMap !=="homicide" && crimeTypeMap !=="shooting")
         {
           var popupContent =
@@ -236,7 +238,7 @@ function handleChange()
     updateMarkers();
     
 }
-
+// Load the neighborhoods into the drop down
 function setup()
 {   
     fetch('http://localhost:5000/neighborhoods')
@@ -250,6 +252,7 @@ function setup()
         .attr("value", d => d.value)
         .text(d => d.text);
       });
+    // Load the map and markers, plots break the API for some reason
     initMap();
     updateMarkers();
 
@@ -257,7 +260,8 @@ function setup()
 
 
 setup();
-
+// Using async because the site took a while to load, this is supposed to speed it up
+// This function just grabs the data from the folder but will be used later to add a layer
 async function loadGeoJSON() {
   const response = await fetch('Neighbourhood_Crime_Rates_Open_Data.geojson');
   const geojsonData = await response.json();
@@ -266,13 +270,13 @@ async function loadGeoJSON() {
 
 async function addGeoJSONLayer() {
   const geojsonData = await loadGeoJSON();
-
+  // make sure the feature is present and bind to tooltip for mouseover
   function onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.AREA_NAME) {
       layer.bindTooltip(feature.properties.AREA_NAME);
     }
   }
-
+  // add the area name to each feature
   L.geoJSON(geojsonData, {
     onEachFeature: onEachFeature
   }).addTo(mymap);
@@ -280,7 +284,5 @@ async function addGeoJSONLayer() {
 
 addGeoJSONLayer();
 
-$(document).ready(function() {
-  $('.neighborhood-select').select2();
-});
+
 
