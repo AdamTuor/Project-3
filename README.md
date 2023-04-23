@@ -25,11 +25,10 @@ The goal of our project is to help the population visualize crime trends in thei
 
 
 
-* 1
-* 2
-* 3
-* 4
-* 5
+* What types of crime are most prevalent in each neighborhood?
+* Which neighborhoods would be considered the safest based on certain types of crime?
+* How has the occurence of crime changed in each neighborhood?
+* Are there crime hotspots or is crime evenly distributed?
 
 ## **<span style="text-decoration:underline;">Data</span>**
 
@@ -52,6 +51,19 @@ All data was sourced from the Toronto Police Service Public Safety Data Portal
 * Bicycle Thefts:
     * ([https://data.torontopolice.on.ca/datasets/TorontoPS::bicycle-thefts-open-data/about](https://data.torontopolice.on.ca/datasets/TorontoPS::bicycle-thefts-open-data/about))
 
-## **<span style="text-decoration:underline;">Analysis</span>**
+## **<span style="text-decoration:underline;">API</span>**
 
-We need to do this part.
+Routes:
+* '/neighborhoods':
+   * Returns the list of neighborhood names and associated ID numbers to populate the dropdown
+* '/crime_data':
+   * Format for request = /crime_data?crime_type=<YourCrimeType>&?neighborhood=<NumberOfNeighborhood>&?start_year=<Year>&?end_year=<Year>
+   * Returns all data from the selected crime table matching the neighborhood and date range.
+* '/radial':
+   * Format for request = /radial?neighborhood=<NumberOfNeighborhood>&?start_year=<Year>&?end_year=<Year>
+   * Returns the table name and count of occurences for the selected neighborhood and date range.
+* '/top5':
+   * Format for request = /top5?crime_type=<YourCrimeType>&?start_year=<Year>&?end_year=<Year>
+   * Returns the top cities with the lowest occurence of the selected crime within the date range.
+   
+***NOTE*** If you would like to run this, your postgres table names should match the values in the crime-type selector as they're used to build the queries.
