@@ -162,7 +162,7 @@ function updateMarkers()
 
       // Clear existing markers from the layer group
       markerLayer.clearLayers();
-
+      crimeTypeMap = crimeType.property("value");
       mapData.map((row) => 
       {
         // console.log(row.X);
@@ -172,21 +172,50 @@ function updateMarkers()
         console.log(marker);
         // Add the marker to the layer group instead of directly to the map
         markerLayer.addLayer(marker);
-
-        var popupContent =
-          "<div class='marker-popup'>" +
-          "<h3>Crime Info</h3>" +
-          // "<br> --------- </br>" +
-          "Neighbourhood: " +
-          row.NEIGHBOURHOOD_158 +
-          "<p>Report Year: " +
-          row.REPORT_YEAR +
-          "</p>"+
-          "<p>Report Month: " +
-          row.REPORT_MONTH +
-          "</p>"
-          "</div>";
-        marker.bindPopup(popupContent);
+        if(crimeTypeMap !== "bike_theft" && crimeTypeMap !=="homicide" && crimeTypeMap !=="shooting")
+        {
+          var popupContent =
+            "<div class='marker-popup'>" +
+            "<h3>Crime Info</h3>" +
+            // "<br> --------- </br>" +
+            "Neighbourhood: " +
+            row.NEIGHBOURHOOD_158 +
+            "<br>Reported: " +
+            row.REPORT_MONTH + " " +row.REPORT_YEAR +
+                      
+            "<br>Offence: "+row.OFFENCE+
+            "</div>";
+          marker.bindPopup(popupContent);
+        }
+        else if(crimeTypeMap == "bike_theft")
+        {
+          var popupContent =
+            "<div class='marker-popup'>" +
+            "<h3>Crime Info</h3>" +
+            // "<br> --------- </br>" +
+            "Neighbourhood: " +
+            row.NEIGHBOURHOOD_158 +
+            "<br>Reported: " +
+            row.REPORT_MONTH + " " +row.REPORT_YEAR +
+                      
+            "<br>Offence: "+row.PRIMARY_OFFENCE+
+            "</div>";
+          marker.bindPopup(popupContent);
+        }
+        else
+        {
+          var popupContent =
+            "<div class='marker-popup'>" +
+            "<h3>Crime Info</h3>" +
+            // "<br> --------- </br>" +
+            "Neighbourhood: " +
+            row.NEIGHBOURHOOD_158 +
+            "<br>Reported: " +
+            row.REPORT_MONTH + " " +row.REPORT_YEAR +                
+            
+            "</div>";
+          marker.bindPopup(popupContent);
+        }
       })
     });
 }
