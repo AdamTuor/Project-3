@@ -4,7 +4,8 @@ const crimeType = d3.select('#crime-type');
 const yearStart = d3.select('#start-year');
 const yearEnd = d3.select('#end-year');
 const neighborhood2 = document.getElementById('neighborhood');
-
+let mymap;
+let markerLayer;
 
 
 d3.select('form')
@@ -133,6 +134,63 @@ function plotBarChart()
 
 }
 
+function initMap() 
+{
+  // Initialize the map
+  var mymap = L.map("mapid").setView([43.6532, -79.3832], 10);
+  // Add the tile layer to the map
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+  }).addTo(mymap);
+  markerLayer = L.layerGroup().addTo(mymap);
+}
+
+function updateMarkers()
+{
+
+  url = `http://localhost:5000/crime_data?crime_type=${crimeType.property("value")}&neighborhood=${neighborhood.property("value")}&start_year=${yearStart.property("value")}&end_year=${yearEnd.property("value")}`;
+  // Load the crime data from the specified URL and plot markers on the map
+  fetch(url)
+  .then(response => response.json())
+  .then(data =>  
+  {
+      console.log("data1");
+      console.log(data.data);
+      mapData = data.data;
+
+      // Clear existing markers from the layer group
+      markerLayer.clearLayers();
+
+      mapData.map((row) => 
+      {
+        // console.log(row.X);
+        var lat = row.Y;
+        var lng = row.X;
+        var marker = L.marker([lat, lng]);
+        console.log(marker);
+        // Add the marker to the layer group instead of directly to the map
+        markerLayer.addLayer(marker);
+
+        var popupContent =
+          "<div class='marker-popup'>" +
+          "<h3>Crime Info</h3>" +
+          // "<br> --------- </br>" +
+          "Neighbourhood: " +
+          row.NEIGHBOURHOOD_158 +
+          "<p>Report Year: " +
+          row.REPORT_YEAR +
+          "</p>"+
+          "<p>Report Month: " +
+          row.REPORT_MONTH +
+          "</p>"
+          "</div>";
+        marker.bindPopup(popupContent);
+      })
+    });
+}
+
 
 
 function handleChange()
@@ -142,6 +200,7 @@ function handleChange()
     plotCharts();
     plotRadialCharts();
     plotBarChart();
+    updateMarkers();
     
 }
 
@@ -158,7 +217,9 @@ function setup()
         .attr("value", d => d.value)
         .text(d => d.text);
       });
-    
+    initMap();
+    updateMarkers();
+
 }
 
   
