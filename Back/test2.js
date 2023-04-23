@@ -137,7 +137,7 @@ function plotBarChart()
 function initMap() 
 {
   // Initialize the map
-  var mymap = L.map("mapid").setView([43.6532, -79.3832], 10);
+  mymap = L.map("mapid").setView([43.6532, -79.3832], 10);
   // Add the tile layer to the map
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
@@ -156,8 +156,8 @@ function updateMarkers()
   .then(response => response.json())
   .then(data =>  
   {
-      console.log("data1");
-      console.log(data.data);
+      // console.log("data1");
+      // console.log(data.data);
       mapData = data.data;
 
       // Clear existing markers from the layer group
@@ -222,6 +222,10 @@ function updateMarkers()
 
 
 
+
+// Call the function to load and add the GeoJSON layer
+
+
 function handleChange()
 {
     //console.log("Handling changes");
@@ -251,7 +255,32 @@ function setup()
 
 }
 
-  
 
 setup();
+
+async function loadGeoJSON() {
+  const response = await fetch('Neighbourhood_Crime_Rates_Open_Data.geojson');
+  const geojsonData = await response.json();
+  return geojsonData;
+}
+
+async function addGeoJSONLayer() {
+  const geojsonData = await loadGeoJSON();
+
+  function onEachFeature(feature, layer) {
+    if (feature.properties && feature.properties.AREA_NAME) {
+      layer.bindTooltip(feature.properties.AREA_NAME);
+    }
+  }
+
+  L.geoJSON(geojsonData, {
+    onEachFeature: onEachFeature
+  }).addTo(mymap);
+}
+
+addGeoJSONLayer();
+
+$(document).ready(function() {
+  $('.neighborhood-select').select2();
+});
 

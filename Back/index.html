@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Toronto Crime Analysis Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" integrity="sha512-zTuTnf+qarJlsyjKX9FAbZNtDylBtYzG4J00gC+vmZLH4FbdvSyz/BXgXJQRpg2+7lAFe6Z+U6jn8O6OQhNMDQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-D3uJ7Vng+EzYfAta7d8gzJxlZ+m7RZMSvM2V7D8pbqJ3V7xfBuOFwUgWlU8iHbx2V6tzPNr5r5W5yIMK48Hf/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-D3uJ7Vng+EzYfAta7d8gzJxlZ+m7RZMSvM2V7D8pbqJ3V7xfBuOFwUgWlU8iHbx2V6tzPNr5r5W5yIMK48Hf/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <meta charset="utf-8">
     <style>
       html,
@@ -18,7 +21,7 @@
         padding: 0;
       }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
     <link
       rel="stylesheet"
@@ -150,7 +153,7 @@ body{
               <option value="break_and_enter">Break and Enter</option>
             </select>
             <label for="neighborhood">Neighborhoods:</label>
-            <select id="neighborhood" name="neighborhood">
+            <select id="neighborhood" name="neighborhood" class="neighborhood-select">
             </select>
             <input type="submit" id="submit-button" value="Submit">
             <a href="https://www.toronto.ca/city-government/data-research-maps/neighbourhoods-communities/neighbourhood-profiles/about-toronto-neighbourhoods/" target="_blank" name="About Toronto">Lookup Your Neighborhood!</a>
@@ -176,5 +179,10 @@ body{
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="test2.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.neighborhood-select').select2();
+      });
+    </script>
   </body>
 </html>
